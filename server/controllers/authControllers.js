@@ -1,15 +1,21 @@
 const userModel = require('../models/userModel-in-memory');
 
+// POST /api/auth/register { username, password }
 const register = async (req, res, next) => {
   try {
     // 1. Pull the username and password out of the request body
     const { username, password } = req.body;
 
-    // 2. Store the new user in the database
-    //    The model returns only user_id and username — never the password
+    // 2. Check if the username is already taken
+    const existingUser = await userModel.findByUsername(username);
+    if (existingUser) {
+      return res.status(400).send({ message: 'Username already taken' });
+    }
+
+    // 3. Store the new user — the model returns only user_id and username, never the password
     const user = await userModel.create(username, password);
 
-    // 3. Respond with the new user and a 201 Created status
+    // 4. Respond with the new user and a 201 Created status
     res.status(201).send(user);
   } catch (err) {
     next(err);
