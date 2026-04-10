@@ -81,6 +81,11 @@ curl -X POST http://localhost:3000/api/auth/login \
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"username": "charlie", "password": "wrongpassword"}'
+
+# Register a new user but the username is taken
+curl -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"username": "charlie", "password": "password123"}'
 ```
 
 ### Users
