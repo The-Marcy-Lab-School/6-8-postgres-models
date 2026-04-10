@@ -14,9 +14,17 @@ module.exports.create = async (username, password) => {
   // TODO
 };
 
-// Returns the full user object including password — used only for login comparison
+// Returns user_id and username — never exposes password
+// Used only to check whether a username is already taken (register)
 // Returns null if not found
 module.exports.findByUsername = async (username) => {
+  // TODO
+};
+
+// Finds the user by username and validates the password
+// Returns user_id and username if credentials match — never exposes password
+// Returns null if not found or password doesn't match
+module.exports.validatePassword = async (username, password) => {
   // TODO
 };
 

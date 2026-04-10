@@ -22,10 +22,23 @@ module.exports.create = (username, password) => {
   return { user_id: user.user_id, username: user.username };
 };
 
-// Returns the full user object including password — used only for login comparison
+// Returns user_id and username — never exposes password
+// Used only to check whether a username is already taken (register)
+// Returns null if not found
 module.exports.findByUsername = (username) => {
-  return users.find((u) => u.username === username) || null;
-}
+  const user = users.find((u) => u.username === username);
+  if (!user) return null;
+  return { user_id: user.user_id, username: user.username };
+};
+
+// Finds the user by username and validates the password
+// Returns user_id and username if credentials match — never exposes password
+// Returns null if not found or password doesn't match
+module.exports.validatePassword = (username, password) => {
+  const user = users.find((u) => u.username === username);
+  if (!user || user.password !== password) return null;
+  return { user_id: user.user_id, username: user.username };
+};
 
 // Updates the user's password and returns user_id and username — never exposes password
 // Returns null if user not found

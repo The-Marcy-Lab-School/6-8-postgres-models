@@ -27,19 +27,17 @@ const login = async (req, res, next) => {
     // 1. Pull the username and password out of the request body
     const { username, password } = req.body;
 
-    // 2. Look up the user by username
-    //    findByUsername returns the full user row including password
-    const user = await userModel.findByUsername(username);
-
-    // 3. If no user was found, or the password doesn't match, reject the request
+    // 2. Validate credentials — the model handles the lookup and comparison
+    //    Returns user_id and username if valid, null otherwise.
     //    We return the same generic message for both cases so an attacker
     //    can't tell whether the username or password was wrong
-    if (!user || user.password !== password) {
+    const user = await userModel.validatePassword(username, password);
+    if (!user) {
       return res.status(401).send({ message: 'Invalid credentials' });
     }
 
-    // 4. Credentials are valid — respond with user_id and username only
-    res.send({ user_id: user.user_id, username: user.username });
+    // 3. Credentials are valid — respond with user_id and username
+    res.send(user);
   } catch (err) {
     next(err);
   }

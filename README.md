@@ -70,36 +70,36 @@ The controllers and routes don't change at all — that's the point.
 # Register a new user
 curl -X POST http://localhost:3000/api/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"username": "alice", "password": "password123"}'
+  -d '{"username": "charlie", "password": "password123"}'
 
 # Login
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username": "alice", "password": "password123"}'
+  -d '{"username": "charlie", "password": "password123"}'
 
 # Login with wrong password (expect 401)
 curl -X POST http://localhost:3000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username": "alice", "password": "wrongpassword"}'
+  -d '{"username": "charlie", "password": "wrongpassword"}'
 ```
 
 ### Users
 
-| Method | Path                  | Description          |
-| ------ | --------------------- | -------------------- |
-| GET    | `/api/users`          | List all users       |
-| PATCH  | `/api/users/:user_id` | Update a password    |
-| DELETE | `/api/users/:user_id` | Delete a user        |
+| Method | Path                  | Description       |
+| ------ | --------------------- | ----------------- |
+| GET    | `/api/users`          | List all users    |
+| PATCH  | `/api/users/:user_id` | Update a password |
+| DELETE | `/api/users/:user_id` | Delete a user     |
 
 ```sh
 # List all users
 curl http://localhost:3000/api/users
 
 # Update a user's password
-curl -X PATCH http://localhost:3000/api/users/1 \
+curl -X PATCH http://localhost:3000/api/users/3 \
   -H "Content-Type: application/json" \
   -d '{"password": "newpassword"}'
 
 # Delete a user
-curl -X DELETE http://localhost:3000/api/users/1
+curl -X DELETE http://localhost:3000/api/users/3
 ```
