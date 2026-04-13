@@ -1,5 +1,6 @@
 const userModel = require('../models/userModel-in-memory');
 
+// GET /api/users
 const listUsers = async (req, res, next) => {
   try {
     const users = await userModel.list();
@@ -9,6 +10,7 @@ const listUsers = async (req, res, next) => {
   }
 };
 
+// PATCH /api/users/:user_id { password }
 const updateUser = async (req, res, next) => {
   try {
     const { password } = req.body;
@@ -20,6 +22,7 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+// DELETE /api/users/:user_id
 const deleteUser = async (req, res, next) => {
   try {
     const user = await userModel.destroy(req.params.user_id);

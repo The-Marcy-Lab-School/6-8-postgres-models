@@ -22,6 +22,7 @@ const register = async (req, res, next) => {
   }
 };
 
+// POST /api/auth/login { username, password }
 const login = async (req, res, next) => {
   try {
     // 1. Pull the username and password out of the request body
